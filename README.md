@@ -1,5 +1,5 @@
-# ElevenLabs - Python - Audio Streaming Test
-This repo demonstrates use of the ElevenLabs api for streaming generated audio.
+# ElevenLabs - Python - Audio Caster
+This repo demonstrates use of the ElevenLabs api for streaming generated audio in threads.
 
 ## Installation
 Install the requirements with:
