@@ -13,3 +13,19 @@ For Linux Debian, it should be as simple as:
 ```
 sudo apt update && sudo apt install mpv
 ```
+
+## Usage
+```
+# create our caster instance
+caster = AudioCaster(api_key=ELEVEN_LABS_API_KEY)
+
+# Start the caster background process
+caster.start()
+
+# cast some text
+caster.cast("Some text")
+
+# Optional: call stop() to wait for the audio to finish playing
+# Alternatively, ending the current process will instantly cleanup background jobs e.g. audio playing
+caster.stop()
+```
