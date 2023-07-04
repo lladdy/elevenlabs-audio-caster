@@ -40,5 +40,8 @@ class AudioCaster(object):
 
     def _start_audio_player(self):
         """Starts another thread which will continuously play the audio streams"""
+        # only start once
+        if hasattr(self, '_audio_player_thread'):
+            raise RuntimeError('Audio player already started')
         self._audio_player_thread = AudioPlayerThread(self._audio_streams_to_cast)
         self._audio_player_thread.start()
