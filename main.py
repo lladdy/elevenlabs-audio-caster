@@ -16,6 +16,5 @@ caster.cast("Cast whole sentences in each text item!")
 caster.cast("If you split up the text")
 caster.cast("into multiple items it will sound weird")
 
-time.sleep(10)  # wait for audio to finish playing
-
 # Ending the current process will instantly kill background jobs e.g. audio playing
+time.sleep(10)  # wait for audio to finish playing

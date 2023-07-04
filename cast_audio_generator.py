@@ -1,11 +1,18 @@
-import time
-
 import continuous_threading
 from elevenlabs import generate, stream
 
 # Change threading._shutdown() to automatically call Thread.allow_shutdown()
 continuous_threading.set_allow_shutdown(True)
 continuous_threading.set_shutdown_timeout(0)  # Default 1
+
+
+class AudioPlayerThread(continuous_threading.ContinuousThread):
+    def __init__(self, audio_streams_to_cast):
+        super().__init__(args=(audio_streams_to_cast,))
+        
+    def _run(self, audio_streams_to_cast):
+        for audio_stream in audio_streams_to_cast:
+            stream(audio_stream)
 
 
 class CastAudioGenerator(object):
@@ -16,13 +23,6 @@ class CastAudioGenerator(object):
         # todo: add more elevenlabs params - voice etc.
 
         self._audio_streams_to_cast = []
-
-    def _play_streams(self):
-        while True:
-            for audio_stream in self._audio_streams_to_cast:
-                stream(audio_stream)
-
-            time.sleep(0.1)
 
     def cast(self, text: str):
         self._text_to_audio_stream(text)
@@ -36,8 +36,8 @@ class CastAudioGenerator(object):
 
     def start(self):
         """Starts another thread which will continuously play the audio streams"""
-        self._audio_player_thread = continuous_threading.Thread(target=CastAudioGenerator._play_streams, args=(self,))
-        self._audio_player_thread.start()  # continuous_threading will auto stop when requested by process shutdown
+        self._audio_player_thread = AudioPlayerThread(self._audio_streams_to_cast)
+        self._audio_player_thread.start()
 
     def stop(self):
         """Immediately shuts down any running threads"""
