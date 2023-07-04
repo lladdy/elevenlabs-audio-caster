@@ -20,9 +20,11 @@ sudo apt update && sudo apt install mpv
 caster = AudioCaster(api_key=ELEVEN_LABS_API_KEY)
 
 # cast some text
-caster.cast("Some text")
+# these calls won't block, and will be both generated and played in the background asynchronously
+caster.cast("I'm a little teapot, short and stout.")
+caster.cast("Here is my handle, here is my spout.")
 
-# Optional: call stop() to wait for the audio to finish playing
+# Optional: call stop() to block while we wait for the audio to finish playing
 # Alternatively, ending the current process will instantly cleanup background jobs e.g. audio playing
 caster.stop()
 ```
