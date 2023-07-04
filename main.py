@@ -1,14 +1,14 @@
 import configparser
 import time
 
-from cast_audio_generator import CastAudioGenerator
+from cast_audio_generator import AudioCaster
 
 config = configparser.ConfigParser()
 config.read('config.ini')
 
 API_KEY = config.get('elevenlabs', 'ApiKey')
 
-caster = CastAudioGenerator(api_key=API_KEY)
+caster = AudioCaster(api_key=API_KEY)
 
 caster.cast("Cast whole sentences in each text item!")
 caster.cast("If you split up the text")
