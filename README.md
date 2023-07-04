@@ -16,11 +16,8 @@ sudo apt update && sudo apt install mpv
 
 ## Usage
 ```
-# create our caster instance
+# create our caster instance - background processes are implicitly started here
 caster = AudioCaster(api_key=ELEVEN_LABS_API_KEY)
-
-# Start the caster background process
-caster.start()
 
 # cast some text
 caster.cast("Some text")

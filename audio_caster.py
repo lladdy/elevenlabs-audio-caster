@@ -56,12 +56,15 @@ class TextToAudioStreamGenerator(continuous_threading.Thread):
 class AudioCaster(object):
     """Casts audio from text using the ElevenLabs API"""
 
-    def __init__(self, api_key: str = None):
+    def __init__(self, api_key: str = None, auto_start: bool = True):
         self.t2asg_factory = TextToAudioStreamGeneratorFactory(api_key=api_key)
 
         # todo: add more elevenlabs params - voice etc.
 
         self._audio_generators_to_cast: List[TextToAudioStreamGenerator] = []
+
+        if auto_start:
+            self.start()
 
     def cast(self, text: str):
         """Adds text to the queue to be casted"""
