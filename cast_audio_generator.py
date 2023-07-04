@@ -1,3 +1,4 @@
+import time
 from typing import List
 
 import continuous_threading
@@ -61,18 +62,32 @@ class AudioCaster(object):
         # todo: add more elevenlabs params - voice etc.
 
         self._audio_generators_to_cast: List[TextToAudioStreamGenerator] = []
-        self._start_audio_player()
 
     def cast(self, text: str):
         """Adds text to the queue to be casted"""
+        if not self.is_started:
+            raise RuntimeError('Caster not started')
+
         generator = self.t2asg_factory.get_generator(text)
         generator.start()
         self._audio_generators_to_cast.append(generator)
 
     def _start_audio_player(self):
         """Starts another thread which will continuously play the audio streams"""
-        # only start once
-        if hasattr(self, '_audio_player_thread'):
-            raise RuntimeError('Audio player already started')
         self._audio_player_thread = AudioPlayerThread(self._audio_generators_to_cast)
         self._audio_player_thread.start()
+
+    def stop(self):
+        """Waits for all audio to be casted"""
+        self._audio_player_thread.join()
+        del self._audio_player_thread
+
+    def start(self):
+        # only start once
+        if self.is_started:
+            raise RuntimeError('Caster already started')
+        self._start_audio_player()
+
+    @property
+    def is_started(self):
+        return hasattr(self, '_audio_player_thread')
