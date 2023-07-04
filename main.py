@@ -1,6 +1,6 @@
 import configparser
 
-from cast_audio_generator import AudioCaster
+from audio_caster import AudioCaster
 
 config = configparser.ConfigParser()
 config.read('config.ini')
