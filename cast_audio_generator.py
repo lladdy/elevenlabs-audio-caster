@@ -7,6 +7,7 @@ continuous_threading.set_shutdown_timeout(0)  # Default 1
 
 
 class AudioPlayerThread(continuous_threading.ContinuousThread):
+    """Thread which continuously plays audio streams"""
     def __init__(self, audio_streams_to_cast):
         super().__init__(args=(audio_streams_to_cast,))
 
@@ -16,6 +17,7 @@ class AudioPlayerThread(continuous_threading.ContinuousThread):
 
 
 class AudioCaster(object):
+    """Casts audio from text using the ElevenLabs API"""
 
     def __init__(self, api_key: str = None):
         self._api_key = api_key
@@ -26,6 +28,7 @@ class AudioCaster(object):
         self._start_audio_player()
 
     def cast(self, text: str):
+        """Adds text to the queue to be casted"""
         self._text_to_audio_stream(text)
 
     def _text_to_audio_stream(self, text: str):
