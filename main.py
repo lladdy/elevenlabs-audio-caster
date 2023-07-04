@@ -10,7 +10,7 @@ API_KEY = config.get('elevenlabs', 'ApiKey')
 
 caster = AudioCaster(api_key=API_KEY)
 
-caster.cast("Cast whole sentences in each text item!")
+caster.cast("Be sure to send whole sentences in each text item!")
 caster.cast("If you split up the text")
 caster.cast("into multiple items it will sound weird")
 
