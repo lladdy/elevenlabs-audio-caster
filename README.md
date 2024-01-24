@@ -1,5 +1,5 @@
 # ElevenLabs - Python - Audio Caster
-This repo demonstrates use of the ElevenLabs api for streaming generated audio in threads.
+This repo demonstrates use of the ElevenLabs api for streaming AI generated audio in threads.
 
 ## Installation
 Install the requirements with:
